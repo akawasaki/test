@@ -132,3 +132,7 @@ cached_gamedata/*
 ## gameserver ignore
 dist
 shared-local-instance.db
+# prettier config 
+.ide/prettier.xml
+# vcs 
+.ide/vcs.xml
