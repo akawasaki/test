@@ -1,25 +1,38 @@
 import { Get } from './Router';
 import { Post } from './Router';
-import {CatsService} from "../services/CatsService";
+import { CatsService } from '../services/CatsService';
+import { Color } from '../models/Cat';
+
+interface CreateCatRequest {
+  name: string;
+  age?: number;
+  color: Color;
+}
+
+interface GetCatRequest {
+  id: string;
+}
 
 export class SimpleController {
-    constructor(private readonly catsService: CatsService) {
-    }
+  constructor(private readonly catsService: CatsService) {}
 
-    @Get('/health')
-    async healthCheck() {
-        return 'I\'m alive!';
-    }
+  @Get('/health')
+  async healthCheck() {
+    return "I'm alive!";
+  }
 
-    @Get('/cats')
-    async get() {
-        const key = '1';
-        return await this.catsService.get(key);
-    }
+  @Get('/cats/:id')
+  async get({ id }: GetCatRequest) {
+    return this.catsService.get(id);
+  }
 
-    @Get('/catsp')
-    async create() {
-        await this.catsService.create();
-        return 'A cat is created!';
-    }
+  @Get('/cats')
+  async getAll() {
+    return this.catsService.getAll();
+  }
+
+  @Post('/cat')
+  async create(cat: CreateCatRequest) {
+    return this.catsService.create(cat);
+  }
 }
