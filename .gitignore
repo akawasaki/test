@@ -133,6 +133,6 @@ cached_gamedata/*
 dist
 shared-local-instance.db
 # prettier config 
-.ide/prettier.xml
+.idea/prettier.xml
 # vcs 
-.ide/vcs.xml
+.idea/vcs.xml
