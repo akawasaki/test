@@ -1,16 +1,26 @@
-import { Get } from './Router';
+import { Get, Put } from './Router';
 import { Post } from './Router';
 import { CatsService } from '../services/CatsService';
 import { Color } from '../models/Cat';
 
-interface CreateCatRequest {
+interface CreateRequest {
   name: string;
   age?: number;
   color: Color;
 }
 
-interface GetCatRequest {
+interface GetRequest {
   id: string;
+}
+
+interface UpdateNameRequest {
+  id: string;
+  name: string;
+}
+
+interface UpdateColorRequest {
+  id: string;
+  color: Color;
 }
 
 export class SimpleController {
@@ -22,7 +32,7 @@ export class SimpleController {
   }
 
   @Get('/cats/:id')
-  async get({ id }: GetCatRequest) {
+  async get({ id }: GetRequest) {
     return this.catsService.get(id);
   }
 
@@ -31,8 +41,18 @@ export class SimpleController {
     return this.catsService.getAll();
   }
 
-  @Post('/cat')
-  async create(cat: CreateCatRequest) {
+  @Post('/cats')
+  async create(cat: CreateRequest) {
     return this.catsService.create(cat);
+  }
+
+  @Put('/cats/:id/names')
+  async updateName({ id, name }: UpdateNameRequest) {
+    return this.catsService.updateName(id, name);
+  }
+
+  @Put('/cats/:id/colors')
+  async updateColor({ id, color }: UpdateColorRequest) {
+    return this.catsService.updateColor(id, color);
   }
 }
