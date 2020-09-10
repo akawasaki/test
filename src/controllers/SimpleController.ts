@@ -33,7 +33,6 @@ export class SimpleController {
 
   @Get('/cats/:id')
   async get({ id }: GetRequest) {
-    console.log('test');
     return this.catsService.get(id);
   }
 
