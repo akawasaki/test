@@ -1,11 +1,11 @@
 import { MainServer } from '../MainServer';
 import * as express from 'express';
-import { SimpleController } from './SimpleController';
+import { CatController } from './CatController';
 
 export class Router {
   constructor(
     private readonly server: MainServer,
-    private readonly simpleController: SimpleController
+    private readonly simpleController: CatController
   ) {}
 
   init() {

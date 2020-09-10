@@ -5,3 +5,7 @@ export class InternalServerError extends Error {
     Object.defineProperty(this, 'message', { enumerable: true });
   }
 }
+
+export class NotFoundError extends InternalServerError {
+  statusCode = 404;
+}

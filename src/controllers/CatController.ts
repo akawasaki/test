@@ -1,6 +1,6 @@
 import { Get, Put } from './Router';
 import { Post } from './Router';
-import { CatsService } from '../services/CatsService';
+import { CatService } from '../services/CatService';
 import { Color } from '../models/Cat';
 
 interface CreateRequest {
@@ -23,8 +23,8 @@ interface UpdateColorRequest {
   color: Color;
 }
 
-export class SimpleController {
-  constructor(private readonly catsService: CatsService) {}
+export class CatController {
+  constructor(private readonly catsService: CatService) {}
 
   @Get('/health')
   async healthCheck() {
