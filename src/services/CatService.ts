@@ -38,6 +38,10 @@ export class CatService {
     return this.update(cat);
   }
 
+  async delete(id: Cat['id']) {
+    await this.catRepository.delete(id);
+  }
+
   private async update(cat: Cat): Promise<Cat> {
     return this.catRepository.set(cat);
   }

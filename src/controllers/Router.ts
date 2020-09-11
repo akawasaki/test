@@ -3,10 +3,7 @@ import * as express from 'express';
 import { CatController } from './CatController';
 
 export class Router {
-  constructor(
-    private readonly server: MainServer,
-    private readonly simpleController: CatController
-  ) {}
+  constructor(private readonly server: MainServer, private readonly simpleController: CatController) {}
 
   init() {
     return this.exposeRestApi();
@@ -23,11 +20,7 @@ export class Router {
     return this;
   }
 
-  private createExpressHandler(
-    route: string,
-    Class: Constructor,
-    field: FieldName
-  ) {
+  private createExpressHandler(route: string, Class: Constructor, field: FieldName) {
     return async (req: express.Request, res: express.Response) => {
       try {
         const params = Object.assign(req.params, req.query, req.body);
@@ -52,8 +45,7 @@ interface RouteInfo {
 const childRouteMap = new Map<Constructor, Map<FieldName, RouteInfo>>();
 function createMethod(method: HttpMethod) {
   return (childRoute: Route) => (Class: any, field: FieldName) => {
-    const fieldMap =
-      childRouteMap.get(Class.constructor) ?? new Map<FieldName, RouteInfo>();
+    const fieldMap = childRouteMap.get(Class.constructor) ?? new Map<FieldName, RouteInfo>();
     childRouteMap.set(Class.constructor, fieldMap);
     if (fieldMap.has(field)) {
       throw new Error('Duplicated FieldName');
@@ -64,3 +56,4 @@ function createMethod(method: HttpMethod) {
 export const Get = createMethod('GET');
 export const Post = createMethod('POST');
 export const Put = createMethod('PUT');
+export const Delete = createMethod('DELETE');

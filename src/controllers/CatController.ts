@@ -1,4 +1,4 @@
-import { Get, Put } from './Router';
+import { Delete, Get, Put } from './Router';
 import { Post } from './Router';
 import { CatService } from '../services/CatService';
 import { Color } from '../models/Cat';
@@ -9,7 +9,7 @@ interface CreateRequest {
   color: Color;
 }
 
-interface GetRequest {
+interface BaseRequest {
   id: string;
 }
 
@@ -32,7 +32,7 @@ export class CatController {
   }
 
   @Get('/cats/:id')
-  async get({ id }: GetRequest) {
+  async get({ id }: BaseRequest) {
     return this.catsService.get(id);
   }
 
@@ -54,5 +54,10 @@ export class CatController {
   @Put('/cats/:id/colors')
   async updateColor({ id, color }: UpdateColorRequest) {
     return this.catsService.updateColor(id, color);
+  }
+
+  @Delete('/cats/:id')
+  async delete({ id }: BaseRequest) {
+    await this.catsService.delete(id);
   }
 }

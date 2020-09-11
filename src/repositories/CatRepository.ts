@@ -20,4 +20,8 @@ export class CatRepository {
     const cats = await this.redis.hgetall(this.key);
     return Object.values(cats).map((cat) => JSON.parse(cat));
   }
+
+  async delete(id: Cat['id']) {
+    await this.redis.hdel(this.key, id);
+  }
 }
