@@ -1,10 +1,10 @@
+import 'reflect-metadata';
+import { Router } from './controllers/';
 import { MainServer } from './MainServer';
-import { Router } from './controllers/Router';
-import { CatController } from './controllers/CatController';
-import { Redis } from './clients/Redis';
+import { container, singleton } from 'tsyringe';
 import { CatService } from './services/CatService';
-import { CatRepository } from './repositories/CatRepository';
 
+@singleton()
 class Main {
   constructor(private readonly mainServer: MainServer, private readonly router: Router) {}
   async init() {
@@ -13,12 +13,7 @@ class Main {
   }
 }
 
-const mainServer = new MainServer();
-const redis = new Redis();
-const catRepository = new CatRepository(redis);
-const catService = new CatService(catRepository);
-const controller = new CatController(catService);
-const router = new Router(mainServer, controller);
-const main = new Main(mainServer, router);
+container.register('ICatService', { useClass: CatService });
+const main = container.resolve(Main);
 
 Promise.resolve(main.init()).then();

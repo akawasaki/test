@@ -1,19 +1,21 @@
 import * as express from 'express';
 import { Server } from 'net';
 import * as bodyParser from 'body-parser';
+import { singleton } from 'tsyringe';
 
-export class MainServer{
-    readonly app = express();
-    private server: Server;
-    private port = '3220';
+@singleton()
+export class MainServer {
+  readonly app = express();
+  private server: Server;
+  private port = '3220';
 
-    constructor() {
-        this.app.use(bodyParser.json({ limit: '2mb' }));
-        this.app.use(bodyParser.urlencoded({ limit: '2mb', extended: true }));
-        this.app.use(bodyParser.text());
-    }
+  constructor() {
+    this.app.use(bodyParser.json({ limit: '2mb' }));
+    this.app.use(bodyParser.urlencoded({ limit: '2mb', extended: true }));
+    this.app.use(bodyParser.text());
+  }
 
-    async listen() {
-        await new Promise(resolve => this.server = this.app.listen(this.port, resolve));
-    }
+  async listen() {
+    await new Promise((resolve) => (this.server = this.app.listen(this.port, resolve)));
+  }
 }

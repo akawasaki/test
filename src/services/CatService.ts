@@ -2,8 +2,11 @@ import { Cat } from '../models/Cat';
 import * as uuid from 'uuid';
 import { NotFoundError } from '../CustomErrors';
 import { CatRepository } from '../repositories/CatRepository';
+import { injectable } from 'tsyringe';
+import { ICatService } from './ICatService';
 
-export class CatService {
+@injectable()
+export class CatService implements ICatService {
   constructor(private readonly catRepository: CatRepository) {}
 
   async create(params: Pick<Cat, 'name' | 'age' | 'color'>): Promise<Cat> {

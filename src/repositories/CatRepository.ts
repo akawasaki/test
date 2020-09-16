@@ -1,6 +1,8 @@
 import { Redis } from '../clients/Redis';
 import { Cat } from '../models/Cat';
+import { injectable } from 'tsyringe';
 
+@injectable()
 export class CatRepository {
   key = 'cat';
 
