@@ -5,7 +5,7 @@ import { container, singleton } from 'tsyringe';
 import { CatService } from './services/CatService';
 
 @singleton()
-class Main {
+export class Main {
   constructor(private readonly mainServer: MainServer, private readonly router: Router) {}
   async init() {
     this.router.init();
